@@ -15,32 +15,30 @@
 .level {
   text-align: right;
 }
-
 .square {
   width: 100%;
   padding-top: 100%;
   background: green;
   margin-top: 20px;
 }
-
 .container-color {
   position: relative;
   margin: 0 auto;
   width: 70%;
   max-width: 700px;
 }
-
 .container-control {
   position: relative;
   margin: 0 auto;
   width: 70%;
   max-width: 700px;
 }
-
+.title {
+  margin: 0 auto;
+}
 .white-bar {
   background-color: white;
 }
-
 body {
   background-color: #000;
 }
