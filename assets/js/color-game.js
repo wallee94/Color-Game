@@ -62,6 +62,7 @@ var initGame = function(){
   for(var j = 1; j < 7; j++){
     color = j === winnerSquare ? mainColor : getRGBFromLevel(mainColor);
     square = document.querySelector('#sq' + j);
+    square.style.cursor = 'pointer';
     if (isEasy && j > 3){
       square.style.background = '#000';
       square.style.cursor = 'default';
