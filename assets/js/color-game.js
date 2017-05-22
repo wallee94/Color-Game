@@ -1,6 +1,6 @@
 var isEasy = true,
     winnerSquare, resetButton, easyButton, hardButton;
-    
+
 var randomRGB = function(){
   var num;
   num = Math.floor(Math.random()*255);
@@ -17,9 +17,10 @@ var randomRGB = function(){
 };
 
 var userWins = function(){
-  var sq;
+  var lim = isEasy ? 4 : 7,
+      sq;
   if (this.id === 'sq' + winnerSquare){
-    for(var j = 1; j < 7; j++){
+    for(var j = 1; j < lim; j++){
       sq = document.querySelector('#sq' + j);
       sq.style.background = this.style.background;
     }
@@ -27,23 +28,17 @@ var userWins = function(){
 };
 
 var getRGBFromLevel = function(mainColor){
-  var color = randomRGB();
   if (isEasy){
-    return color;
+    return randomRGB();
   }
   else {
-    var diff = {
-      R: mainColor.R - color.R,
-      G: mainColor.G - color.G,
-      B: mainColor.B - color.B
-    };
-    while(Math.sqrt( diff.R*diff.R + diff.G*diff.G + diff.B*diff.B ) > 100){
-      color = randomRGB();
-      diff = {
-        R: mainColor.R - color.R,
-        G: mainColor.G - color.G,
-        B: mainColor.B - color.B
-      };
+    var color = {},
+        init = 60,
+        range = 40,
+        sign;
+    for (key in mainColor){
+      sign = Math.floor(-1.5 + Math.random()) + 2;
+      color[key] = +mainColor[key] + sign*Math.floor(Math.random()*range + init);
     }
     return color;
   }
@@ -61,11 +56,17 @@ var initGame = function(){
     easyButton.style.fontWeight = 'normal';
     hardButton.style.fontWeight = 'bold';
   }
-  winnerSquare = Math.floor(Math.random()*6) + 1;
+  lim = isEasy ? 3 : 6
+  winnerSquare = Math.floor(Math.random()*lim) + 1;
   title.textContent = "RGB(" + mainColor.R + ", " + mainColor.G + ", " + mainColor.B + ")";
   for(var j = 1; j < 7; j++){
     color = j === winnerSquare ? mainColor : getRGBFromLevel(mainColor);
     square = document.querySelector('#sq' + j);
+    if (isEasy && j > 3){
+      square.style.background = '#000';
+      square.style.cursor = 'default';
+      continue;
+    }
     square.style.background = 'rgb(' + color.R + "," + color.G + "," + color.B + ')';
     square.addEventListener("click", userWins, false);
     square.addEventListener("click", userWins);
@@ -78,12 +79,18 @@ resetButton.addEventListener('click', initGame);
 easyButton = document.querySelector('#easy');
 easyButton.style.cursor = 'pointer';
 easyButton.addEventListener('click', function(){
+  if (isEasy){
+    return;
+  }
   isEasy = true;
   initGame();
 });
 hardButton = document.querySelector('#hard');
 hardButton.style.cursor = 'pointer';
 hardButton.addEventListener('click', function(){
+  if (!isEasy){
+    return;
+  }
   isEasy = false;
   initGame();
 });

@@ -3,10 +3,13 @@
   text-align: center;
   color: white;
   padding: 10px;
+  text-transform: uppercase;
+  margin: 0 auto;
 }
 .controls {
   color: #2378ff;
   background-color: white;
+  font-size: 20px;
 }
 .reset {
   text-align: left;
@@ -34,14 +37,15 @@
   width: 70%;
   max-width: 700px;
 }
-.title {
-  margin: 0 auto;
-}
 .white-bar {
   background-color: white;
 }
 body {
   background-color: #000;
+  font-family: 'Oswald', sans-serif;
+}
+h1 {
+  font-size: 45px;
 }
 #sq6{
   margin-bottom: 15px;
